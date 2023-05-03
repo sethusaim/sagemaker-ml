@@ -74,7 +74,7 @@ class DataIngestion:
             logging.info(
                 f"Converted train set and test set to {self.data_ingestion_config.feature_store_train_file_path} file and {self.data_ingestion_config.feature_store_test_file_path} file"
             )
-            
+
             logging.info("Exited split_data method of DataIngestion class")
 
         except Exception as e:
