@@ -1,10 +1,10 @@
-import os
 import sys
 
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
 from src.cloud_storage.aws_operations import AWSOperation
+from src.entity.artifact_entity import DataIngestionArtifact
 from src.entity.config_entity import DataIngestionConfig
 from src.exception import CustomException
 from src.logger import logging
@@ -80,7 +80,7 @@ class DataIngestion:
         except Exception as e:
             raise CustomException(e, sys)
 
-    def initiate_data_ingestion(self):
+    def initiate_data_ingestion(self) -> DataIngestionArtifact:
         logging.info("Entered initiate_data_ingestion method of DataIngestion class")
 
         try:
@@ -88,7 +88,20 @@ class DataIngestion:
 
             self.split_data(dataframe=dataframe)
 
+            self.aws_op.sync_folder_to_s3(
+                folder=self.data_ingestion_config.data_ingestion_dir,
+                bucket_name=self.data_ingestion_config.feature_store_bucket_name,
+                bucket_folder_name=self.data_ingestion_config.data_ingestion_dir,
+            )
+
+            data_ingestion_artifact = DataIngestionArtifact(
+                feature_store_s3_train_file_path=self.data_ingestion_config.feature_store_train_file_path,
+                feature_store_s3_test_file_path=self.data_ingestion_config.feature_store_test_file_path,
+            )
+
             logging.info("Exited initiate_data_ingestion method of DataIngestion class")
+
+            return data_ingestion_artifact
 
         except Exception as e:
             raise CustomException(e, sys)
