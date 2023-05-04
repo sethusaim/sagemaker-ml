@@ -7,6 +7,7 @@ from uvicorn import run as app_run
 
 from src.constant.pipeline import APP_HOST, APP_PORT
 from src.entity.config_entity import EndPointConfig
+from src.ml.model.estimator import CustomEstimator
 from src.pipeline.train_pipeline import TrainPipeline
 
 app = FastAPI()
@@ -42,8 +43,8 @@ async def training():
         return Response(f"Error Occurred! {e}")
 
 
-@app.get("/deploy/{s3_model_uri}")
-async def deploy_model(s3_model_uri):
+@app.post("/deploy/{s3_model_uri:path}")
+async def deploy_model(s3_model_uri: str):
     try:
         model = SKLearnModel(
             model_data=s3_model_uri,
@@ -54,6 +55,19 @@ async def deploy_model(s3_model_uri):
         model.deploy(**endpoint_config.model_deploy_config)
 
         return Response(f"{s3_model_uri} model deployment successfully")
+
+    except Exception as e:
+        return Response(f"Error Occurred! {e}")
+
+
+@app.post("/predict/{endpoint_name}")
+async def predict(endpoint_name: str):
+    try:
+        estimator = CustomEstimator()
+
+        predictions = estimator.predict(endpoint_name=endpoint_name)
+
+        return Response(f"Model Predictions are {predictions}")
 
     except Exception as e:
         return Response(f"Error Occurred! {e}")
