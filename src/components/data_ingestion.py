@@ -17,6 +17,12 @@ class DataIngestion:
         self.data_ingestion_config = data_ingestion_config
 
     def get_data_from_s3(self) -> pd.DataFrame:
+        """
+        This function retrieves data from an S3 bucket and returns it as a Pandas DataFrame.
+
+        Returns:
+          a pandas DataFrame object.
+        """
         logging.info(
             "Entered export_data_to_feature_store method of DataIngestion class"
         )
@@ -45,7 +51,15 @@ class DataIngestion:
         except Exception as e:
             raise CustomException(e, sys)
 
-    def split_data(self, dataframe: pd.DataFrame):
+    def split_data(self, dataframe: pd.DataFrame) -> None:
+        """
+        The function splits a given dataframe into train and test sets, saves them as CSV files, and logs
+        the process.
+
+        Args:
+          dataframe (pd.DataFrame): A pandas DataFrame containing the data to be split into train and test
+        sets.
+        """
         logging.info("Entered split_data method of DataIngestion class")
 
         try:
@@ -81,6 +95,13 @@ class DataIngestion:
             raise CustomException(e, sys)
 
     def initiate_data_ingestion(self) -> DataIngestionArtifact:
+        """
+        This function initiates data ingestion by getting data from S3, splitting it, syncing it to S3, and
+        returning a DataIngestionArtifact.
+        
+        Returns:
+          The method `initiate_data_ingestion` returns an instance of the `DataIngestionArtifact` class.
+        """
         logging.info("Entered initiate_data_ingestion method of DataIngestion class")
 
         try:
