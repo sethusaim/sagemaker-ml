@@ -23,7 +23,7 @@ class ModelTrainer:
         """
         This function initiates model training using an SKLearn estimator and returns the S3 path of the
         trained model artifact.
-        
+
         Returns:
           The method `initiate_model_training` returns a string which is the S3 path of the trained model
         artifact.

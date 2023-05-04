@@ -98,7 +98,7 @@ class DataIngestion:
         """
         This function initiates data ingestion by getting data from S3, splitting it, syncing it to S3, and
         returning a DataIngestionArtifact.
-        
+
         Returns:
           The method `initiate_data_ingestion` returns an instance of the `DataIngestionArtifact` class.
         """

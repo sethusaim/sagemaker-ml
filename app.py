@@ -45,7 +45,6 @@ async def training():
 @app.get("/deploy/{s3_model_uri}")
 async def deploy_model(s3_model_uri):
     try:
-
         model = SKLearnModel(
             model_data=s3_model_uri,
             entry_point="src/ml/model/sagemaker_train_script.py",
