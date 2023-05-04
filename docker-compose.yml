@@ -1,0 +1,6 @@
+version: '3'
+services:
+  application:
+    image: 566373416292.dkr.ecr.us-east-1.amazonaws.com/sagemaker-demo:latest
+    ports:
+      - "8080:8080"
