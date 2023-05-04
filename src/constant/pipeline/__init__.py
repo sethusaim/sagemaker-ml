@@ -56,3 +56,9 @@ PRED_BUCKET_NAME: str = "sagemaker-ineuron"
 PRED_BUCKET_FILE_NAME: str = "mob_price_test.csv"
 
 LOCAL_FILE_NAME: str = "mob_price_test.csv"
+
+## App Constants
+
+APP_HOST: str = "0.0.0.0"
+
+APP_PORT: int = 8080
