@@ -9,6 +9,10 @@ demo.py
 data/
 artifacts/
 logs/
+notebooks/test-V-1.csv
+notebooks/train-V-1.csv
+notebooks/model.joblib
+notebooks/script.py
 # Distribution / packaging
 .Python
 build/

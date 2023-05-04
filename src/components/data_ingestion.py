@@ -94,9 +94,13 @@ class DataIngestion:
                 bucket_folder_name=self.data_ingestion_config.data_ingestion_dir,
             )
 
+            feature_store_s3_train_file_path: str = f"s3://{self.data_ingestion_config.feature_store_bucket_name}/{self.data_ingestion_config.feature_store_train_file_path}"
+
+            feature_store_s3_test_file_path: str = f"s3://{self.data_ingestion_config.feature_store_bucket_name}/{self.data_ingestion_config.feature_store_test_file_path}"
+
             data_ingestion_artifact = DataIngestionArtifact(
-                feature_store_s3_train_file_path=self.data_ingestion_config.feature_store_train_file_path,
-                feature_store_s3_test_file_path=self.data_ingestion_config.feature_store_test_file_path,
+                feature_store_s3_train_file_path=feature_store_s3_train_file_path,
+                feature_store_s3_test_file_path=feature_store_s3_test_file_path,
             )
 
             logging.info("Exited initiate_data_ingestion method of DataIngestion class")
